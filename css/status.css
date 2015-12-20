@@ -1,0 +1,26 @@
+.date {
+	display: block;
+	text-align: right;
+	font-variant: small-caps;
+}
+
+.status {
+	margin-top: 0.5em;
+    border-radius: 0.3em;
+    border: 2px solid #ccc;
+    padding: 1em;	
+}
+.status label {
+	font-weight: 600;
+    font-family: Raleway, 'Helvetica Neue', Helvetica, sans-serif;
+    margin-bottom: 0.5em;
+    cursor: pointer;
+}
+
+.status button.glyphicon-trash {
+	margin-top: 1em;
+}
+
+div#add {
+	margin-top: 1em;
+}
