@@ -50,24 +50,24 @@ var StatusList = React.createClass({
 	add: function() {
 		var now = (new Date()).getTime(),
 			content = "Add an entry";
-			this.state.status.push({
-				date: now,
-				text: content
-			});		
+		this.state.status.push({
+			date: now,
+			text: content
+		});
 		this.setState({status: this.state.status});
 		this.persistState();
 	},
 	render: function() {
 		return (
-				<div>
-					<div id="add">
-						<button className="btn btn-primary btn-sm pull-right glyphicon glyphicon-plus" onClick={this.add}/>
-					</div>
-					<br/><br/>
-					<div className="statuslist">
-						{this.state.status.map(this.createStatus)}
-					</div>
+			<div>
+				<div id="add">
+					<button className="btn btn-primary btn-sm pull-right glyphicon glyphicon-plus" onClick={this.add}/>
 				</div>
+				<br/><br/>
+				<div className="statuslist">
+					{this.state.status.map(this.createStatus)}
+				</div>
+			</div>
 			)
 	}
 });
