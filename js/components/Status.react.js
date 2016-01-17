@@ -17,6 +17,55 @@ parseDate = function(d) {
 	// return `${week}, ${year}/${month}/${date}`;
 }
 
+var Tag = React.createClass({
+	getInitialState: function() {
+		return {
+			editing: false
+		}
+	},
+	render: function() {
+		console.log(`rendering tag ${this.props.pos}`);
+		if (this.state.editing) {
+			return this.renderForm()
+		} else {
+			return this.renderText();
+		}
+	},
+	renderForm: function() {
+		var tags = this.props.tags.join(',');
+		return (
+			<div className="tags">
+				<input type="text" ref="tag" onBlur={this.display} defaultValue={tags}></input>
+			</div>
+		)
+	},
+	renderText: function() {
+		var idx = 0;
+		var tags = this.props.tags.map(function(t) {
+			idx += 1;
+			return (<span className="badge" key={idx}>{t}</span>)
+		});
+		return (
+			<div className="tags" onClick={this.edit}>
+				{tags}
+			</div>
+		)
+	},
+	display: function() {
+		var tags = [],
+			val = this.refs.tag.value;
+		if (val.length) {
+			tags = val.split(',').filter((t) => t.trim().length);
+		}
+		Actions.updateTag(this.props.pos, tags);
+		console.log("updating tag", this.refs.tag.value);
+		this.setState({editing: false});
+	},
+	edit: function() {
+		this.setState({editing: true});
+	}
+});
+
 var Status = React.createClass({
 	getInitialState: function() {
 		return {
@@ -43,12 +92,15 @@ var Status = React.createClass({
     },
 	renderText: function() {
 	// http://stackoverflow.com/questions/28524751/reactjs-modify-parent-state-from-child-component
+		var tags = this.props.tags.length ? this.props.tags : ["default"];
 		return (
 			<div className="status">
 				<span className="date">{parseDate(this.props.date)}</span>
 				<label onClick={this.edit}>{this.props.content}</label>
 
 				<button className="btn btn-xs btn-danger glyphicon glyphicon-trash pull-right" onClick={this.delete}/>
+				<Tag tags={tags} pos={this.props.pos} key={this.props.pos}/>
+
 			</div>
 			)
 	},
@@ -61,6 +113,7 @@ var Status = React.createClass({
 			)
 	},
 	render: function() {
+		console.log(`rendering Status ${this.props.pos}`);
 		if (this.state.editing) {
 			return this.renderForm();
 		} else {

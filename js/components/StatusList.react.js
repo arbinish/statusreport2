@@ -10,6 +10,7 @@ function getState() {
         status: StatusStore.getAll()
     }
 }
+
 var StatusList = React.createClass({
     getInitialState: function() {
         return getState();
@@ -24,8 +25,9 @@ var StatusList = React.createClass({
         this.setState(getState());
     },
     createStatus: function(status, index) {
+        var tags = status.tags || ["default"];
         return (
-            <Status key={index} pos={index} content={status.text} date={ status.date } />
+            <Status key={index} pos={index} content={status.text} date={ status.date } tags={tags} />
         )
     },
     render: function() {

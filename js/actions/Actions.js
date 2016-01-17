@@ -19,6 +19,13 @@ var Actions = {
             id: index,
             text: text
         });
+    },
+    updateTag: function(index, tag) {
+        AppDispatcher.dispatch({
+            actionType: Constants.UPDATE_TAG,
+            id: index,
+            tag: tag
+        });
     }
 }
 

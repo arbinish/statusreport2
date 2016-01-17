@@ -35,6 +35,16 @@ function update(id, content) {
     };
 }
 
+/**
+ * update Tag. Lets not update timestamp on tag update
+ * @param id {int}
+ * @param tag {string}
+ */
+function updateTag(id, tag) {
+    var status = __status[id];
+    status['tags'] = tag;
+}
+
 function destroy(id) {
     __status.splice(id, 1);
 }
@@ -56,7 +66,7 @@ var StatusStore = assign({}, EventEmitter.prototype, {
 });
 
 AppDispatcher.register(function(action) {
-    var index, text;
+    var index, text, tag;
     switch(action.actionType) {
         case constants.ADD_ENTRY:
             create();
@@ -65,7 +75,7 @@ AppDispatcher.register(function(action) {
 
         case constants.DELETE_ENTRY:
             index = action.id;
-            if (__status[index] == 'undefined' || __status[index] == null) {
+            if (__status[index] === undefined || __status[index] === null) {
                 console.error(`${index} does not exist`);
                 break;
             }
@@ -75,7 +85,7 @@ AppDispatcher.register(function(action) {
 
         case constants.UPDATE_ENTRY:
             index = action.id;
-            if (__status[index] == 'undefined' || __status[index] == null) {
+            if (__status[index] === undefined || __status[index] === null) {
                 console.error(`${index} does not exist`);
                 break;
             }
@@ -83,6 +93,18 @@ AppDispatcher.register(function(action) {
             update(index, text);
             StatusStore.emitChange();
             break;
+
+        case constants.UPDATE_TAG:
+            index = action.id;
+            if (__status[index] === undefined || __status[index] === null) {
+                console.error(`${index} does not exist`);
+                break;
+            }
+            tag = action.tag;
+            updateTag(index, tag);
+            StatusStore.emitChange();
+            break;
+
     }
 });
 
