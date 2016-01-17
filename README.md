@@ -1,6 +1,6 @@
 # statusreport2
 
-An attempt to build a status report tool using react. 
+An attempt to build a status report tool using react.
 
 ## Installation
 

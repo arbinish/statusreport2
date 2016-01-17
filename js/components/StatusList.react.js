@@ -25,21 +25,19 @@ var StatusList = React.createClass({
     },
     createStatus: function(status, index) {
         return (
-            <Status key={index} pos={index} content={status.text} date={status.date}/>
+            <Status key={index} pos={index} content={status.text} date={ status.date } />
         )
     },
     render: function() {
         return (
-			<div>
-				<div id="add">
-					<button className="btn btn-primary btn-sm pull-right glyphicon glyphicon-plus" onClick={Actions.create}/>
-				</div>
-				<br/><br/>
-				<div className="statuslist">
-					{this.state.status.map(this.createStatus)}
-				</div>
-			</div>
-			)
+            <div>
+                <div id="add">
+                    <button className = "btn btn-primary btn-sm pull-right glyphicon glyphicon-plus" onClick={ Actions.create }/>
+                </div> <br/>
+            <br/>
+                <div className="statuslist"> {this.state.status.map(this.createStatus) } </div>
+            </div>
+        )
     }
 });
 
